@@ -9,13 +9,13 @@ interface ApiResponse<T> {
 
 // Utility function for GET request
 export const get = async <T>(url: string, config: object = {}): Promise<T> => {
-  try {
+  // try {
     const response: ApiResponse<T> = await axiosInstance.get(url, config);
     return response.data;
-  } catch (error) {
-    console.error('API GET request error:', error);
-    throw error;
-  }
+  // } catch (error) {
+  //   console.error('API GET request error:', error);
+  //   throw error;
+  // }
 };
 
 // Utility function for POST request

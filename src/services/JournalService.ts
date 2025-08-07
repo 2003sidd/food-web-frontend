@@ -13,10 +13,10 @@ export const getAllResturant = () =>{
 }
 
 export const getMenuByResturant = (id:string) =>{
-  return get<GenericResponseType<MenuInterface>>(`/api/menu/getMenuByResturant/${id}`)
+  return get<GenericResponseType<MenuInterface[]>>(`/api/menu/getMenuByResturant/${id}`)
 
 }
 
 export const getMenuByCategory = (id:string) => {
-  return get<GenericResponseType<MenuInterface>>(`/api/menu/getMenuByCategory/:${id}`)
+  return get<GenericResponseType<MenuInterface[]>>(`/api/menu/getMenuByCategory/${id}`)
 }

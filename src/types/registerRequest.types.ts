@@ -1,5 +1,6 @@
 export interface registerInterface{
     name:string, 
     email:string,
-    password:string
+    password:string,
+    phoneNo:string
 }

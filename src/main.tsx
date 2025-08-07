@@ -13,11 +13,14 @@ import TermsCondition from './component/Info-pages/term&condition.tsx';
 import Login from './component/Login/login.tsx';
 import Register from './component/Register/register.tsx';
 import MenuByResturant from './component/menu/menyByResturant.tsx';
-
+import MenuByCategory from './component/menu/menuByCategory.tsx';
+import { Provider } from 'react-redux';
+import store from './redux/store.ts';
+import ProtectedRoute from './protectedRoute/protectedRoute.ts';
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />, // Home route
+      element: <ProtectedRoute element={<App />} />, // Home route
       children:[ {
           path: "/",
       element: <Home />, // About route
@@ -33,6 +36,10 @@ const router = createBrowserRouter([
       path: "/MenuByResturant/:id",
       element: < MenuByResturant  />, // Projects route
     },
+    {
+      path: "/MenuByCategory/:id",
+      element: < MenuByCategory  />, // Projects route
+    },
      {
       path: "/privacyPolicy",
       element: < Privacy/>, // Projects route
@@ -41,14 +48,7 @@ const router = createBrowserRouter([
       path: "/terms&Condition",
       element: < TermsCondition/>, // Projects route
     },
-     {
-      path: "/login",
-      element: < Login/>, // Projects route
-    },
-     {
-      path: "/register",
-      element: < Register/>, // Projects route
-    },
+     
     {
       path: "/contact",
       element: <GetHelp />, // Contact route
@@ -57,12 +57,22 @@ const router = createBrowserRouter([
       path: "*", 
       element: <NotFound />, // Catch-all route for 404 Not Found
     },]
+    },{
+      path: "/login",
+      element: < Login/>, // Projects route
+    },
+     {
+      path: "/register",
+      element: < Register/>, // Projects route
     },
    
   ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <Provider store={store}>
+
      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

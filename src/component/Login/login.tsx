@@ -18,7 +18,8 @@ const Login: React.FC = () => {
       .then((response) => {
         console.log("from outer", response)
         if (response.data) {
-         
+          
+         naviagate('/home')
         } else {
           setErrorMessage(response.message);
           console.log(`response is ${response.data} and ${response.statusCode}`)

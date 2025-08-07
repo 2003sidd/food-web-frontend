@@ -58,7 +58,7 @@ const Register: React.FC = () => {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (!checkForm()) {
-            const data = await register({email,name,password});
+            const data = await register({email,name,password,phoneNo:"6232587776"});
             if(!data.data){
                 console.log("user created",data.data)
             }else{
@@ -67,7 +67,7 @@ const Register: React.FC = () => {
             }
         } else {
             console.log("error is", errorMessage)
-            alert("Form error")
+            // alert("Form error")
         }
 
 

@@ -21,28 +21,29 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="text-2xl font-bold text-gray-900">
-            Food Delivery
+            Quick Bite
           </div>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             {navItems.map((item) => (
-              <span className='text-lg font-semibold'>
- {item.label}
-              </span> 
-            //   <Link
-            //     key={item.id}
-            //     to={item.to}  // Use React Router's Link component
-            //     className="text-gray-700 hover:text-black transition-colors duration-200 font-medium"
-            //   >
-            //     {item.label}
-            //   </Link>
+              // <span className='text-lg font-semibold'>
+ 
+              // </span> 
+              <Link
+                key={item.id}
+                to={item.to}  // Use React Router's Link component
+                className="text-gray-700 hover:underline transition-underline hover:text-black transition-colors duration-100 font-medium"
+              >
+                {item.label}
+              </Link>
             ))}
           </nav>
 
-          <div className='bg-yellow-400 text-white px-4 rounded py-1'>
-
+          <div className='bg-yellow-400 text-white px-4 rounded py-1 hover:bg-yellow-500 transition-background duration-300'>
+<Link to="/login">
             Login / Sign up
+</Link>
           </div>
 
           {/* Mobile Menu Button */}
