@@ -5,10 +5,13 @@ import { Outlet } from 'react-router-dom'
 function App() {
   return (
     <>
-     <div className="min-h-screen bg-white">
 
+     <div className="min-h-screen bg-white">
      <Header />
+    <div className="min-h-screen ">
+
      <Outlet />
+    </div>
      
      <Footer />
      </div>

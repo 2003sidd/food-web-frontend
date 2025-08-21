@@ -17,62 +17,88 @@ import MenuByCategory from './component/menu/menuByCategory.tsx';
 import { Provider } from 'react-redux';
 import store from './redux/store.ts';
 import ProtectedRoute from './protectedRoute/protectedRoute.ts';
+import Cart from './component/cart/cart.tsx';
+import Checkout from './component/checkout/checkout.tsx';
+import AddAddress from './component/address/AddAdress.tsx';
+import OrderList from './component/order/orderList.tsx';
+import OrderDetail from './component/order/orderDetail.tsx';
 const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <ProtectedRoute element={<App />} />, // Home route
+    children: [{
       path: "/",
-      element: <ProtectedRoute element={<App />} />, // Home route
-      children:[ {
-          path: "/",
       element: <Home />, // About route
-      },{
+    }, {
       path: "/hero",
       element: <Hero />, // About route
     },
+     {
+      path: "/orderList",
+      element: <OrderList />, // About route
+    },
+     {
+      path: "/orderDetail",
+      element: <OrderDetail />, // About route
+    },
+    {
+      path: "/address",
+      element: <AddAddress />, // About route
+    },
+    {
+      path: "/cart",
+      element: <Cart />, // About route
+
+    },
+    {
+      path: "/checkout",
+      element: <Checkout />, // About route
+    },
     {
       path: "/about",
-      element: < AboutUs/>, // Projects route
+      element: < AboutUs />, // Projects route
     },
     {
       path: "/MenuByResturant/:id",
-      element: < MenuByResturant  />, // Projects route
+      element: < MenuByResturant />, // Projects route
     },
     {
       path: "/MenuByCategory/:id",
-      element: < MenuByCategory  />, // Projects route
+      element: < MenuByCategory />, // Projects route
     },
-     {
+    {
       path: "/privacyPolicy",
-      element: < Privacy/>, // Projects route
+      element: < Privacy />, // Projects route
     },
-     {
+    {
       path: "/terms&Condition",
-      element: < TermsCondition/>, // Projects route
+      element: < TermsCondition />, // Projects route
     },
-     
+
     {
       path: "/contact",
       element: <GetHelp />, // Contact route
     },
     {
-      path: "*", 
+      path: "*",
       element: <NotFound />, // Catch-all route for 404 Not Found
     },]
-    },{
-      path: "/login",
-      element: < Login/>, // Projects route
-    },
-     {
-      path: "/register",
-      element: < Register/>, // Projects route
-    },
-   
-  ]);
+  }, {
+    path: "/login",
+    element: < Login />, // Projects route
+  },
+  {
+    path: "/register",
+    element: < Register />, // Projects route
+  },
+
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
 
-     <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 )

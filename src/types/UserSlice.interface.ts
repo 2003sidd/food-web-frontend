@@ -1,5 +1,5 @@
-import type UserType from "./user.types";
+import type { UserInterface } from "./loginResponse.types";
 
 export default interface UserSliceInterface{
-    user:null|UserType
+    user:null|UserInterface
 }

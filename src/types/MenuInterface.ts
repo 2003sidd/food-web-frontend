@@ -2,5 +2,7 @@ export default interface MenuInterface {
  name: string;
   description: string;
   price: number;
-  image:string
+  image_url:string
+
+  _id:string
 }

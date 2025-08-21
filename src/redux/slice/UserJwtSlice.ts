@@ -15,11 +15,16 @@ const userJwtSlice = createSlice({
     // Action to set the JWT token
     setJwt: (state, action: PayloadAction<string>) => {
       state.token = action.payload; // Store the JWT token
+
+        localStorage.setItem("authToken", JSON.stringify(action.payload));
     },
+    
     
     // Action to clear the JWT token
     clearJwtToken: (state) => {
       state.token = null; // Clear the JWT token
+        localStorage.removeItem("authToken");
+
     },
   },
 });

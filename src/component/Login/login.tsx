@@ -4,13 +4,16 @@ import { post } from "../../api/api";
 import { type GenericResponseType } from "../../types/genricResponse.types";
 import type { LoginResponse } from "../../types/loginResponse.types";
 import { type LoginRequest } from "../../types/loginRequest.types";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/slice/UserDateSlice";
+import { setJwt } from "../../redux/slice/UserJwtSlice";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const naviagate = useNavigate()
-
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -18,8 +21,10 @@ const Login: React.FC = () => {
       .then((response) => {
         console.log("from outer", response)
         if (response.data) {
-          
-         naviagate('/home')
+          console.log("response data is",response.data)
+          dispatch(setUserData(response.data.user))
+          dispatch(setJwt(response.data.authToken))
+         naviagate('/')
         } else {
           setErrorMessage(response.message);
           console.log(`response is ${response.data} and ${response.statusCode}`)

@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/AuthService";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/slice/UserDateSlice";
+import { setJwt } from "../../redux/slice/UserJwtSlice";
 
 const Register: React.FC = () => {
 
-    interface errorType { name?: string, email?: string, password?: string, confirmPassword?: string }
+    interface errorType { name?: string, email?: string, number?: string, password?: string, confirmPassword?: string }
 
 
-    const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [number, setPhoneNumber] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<errorType>({});
-
+  const naviagate = useNavigate()
+  const dispatch = useDispatch();
 
     const validateEmail = (email: string) => {
         // A simple email validation regex
@@ -41,7 +46,11 @@ const Register: React.FC = () => {
         if (!confirmPassword || confirmPassword.length < 6) {
             error.confirmPassword = "Please enter a valid confirm Password."
             isError = true
+        }
 
+        if (!number || number.length < 10 || number.length>10) {
+            error.confirmPassword = "Please enter a valid phone number."
+            isError = true
         }
 
         if (password !== confirmPassword) {
@@ -58,11 +67,14 @@ const Register: React.FC = () => {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (!checkForm()) {
-            const data = await register({email,name,password,phoneNo:"6232587776"});
-            if(!data.data){
-                console.log("user created",data.data)
-            }else{
-                console.log("user created",data)
+            const data = await register({ email, name, password, phoneNo:number });
+            if (data.data) {
+                console.log("user created", data.data);
+                 dispatch(setUserData(data.data.user))
+                          dispatch(setJwt(data.data.authToken))
+                         naviagate('/')
+            } else {
+                console.log("user not created", data)
 
             }
         } else {
@@ -91,7 +103,7 @@ const Register: React.FC = () => {
                         required
                         className="my-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                    {errorMessage.name && <p className="text-md mb-1 text-red-500">{errorMessage.name}</p>}
+                    {errorMessage.number && <p className="text-md mb-1 text-red-500">{errorMessage.number}</p>}
 
 
                     <label htmlFor="email" className="block mt-2 text-sm mb-1 font-medium text-gray-600">
@@ -108,6 +120,20 @@ const Register: React.FC = () => {
                     />
                     {errorMessage.email && <p className="text-md mb-1 text-red-500">{errorMessage.email}</p>}
 
+
+                    <label htmlFor="number" className="block mt-2 text-sm mb-1 font-medium text-gray-600">
+                        Phone Number
+                    </label>
+                    <input
+                        type="tel"
+                        id="number"
+                        name="number"
+                        value={number}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        required
+                        className="my-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    {errorMessage.email && <p className="text-md mb-1 text-red-500">{errorMessage.email}</p>}
 
                     <label htmlFor="password" className="block mt-2 mb-1 text-sm font-medium text-gray-600">
                         Password

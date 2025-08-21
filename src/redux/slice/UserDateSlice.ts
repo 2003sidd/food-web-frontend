@@ -11,10 +11,13 @@ const userStore = createSlice({
     reducers:{
         setUserData :(state, action:PayloadAction<UserType>) => {
             state.user = action.payload;
-        },
-        clearUserData :(state) => { 
-            state.user = null;
-        }
+          localStorage.setItem("user", JSON.stringify(action.payload));
+    },
+    clearUserData: (state) => {
+      state.user = null;
+      // Clear from localStorage
+      localStorage.removeItem("user");
+    }
     }
 });
 

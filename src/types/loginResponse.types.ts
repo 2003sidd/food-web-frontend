@@ -1,6 +1,11 @@
 export interface LoginResponse {
-  _id:string
-  accessToken:string, 
-  name:string,
-  email:string
+  authToken: string,
+  user: UserInterface
+
+}
+
+export interface UserInterface {
+  _id: string
+  name: string,
+  email: string
 }
